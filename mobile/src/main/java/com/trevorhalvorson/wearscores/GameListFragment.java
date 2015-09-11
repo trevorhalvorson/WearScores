@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ public class GameListFragment extends Fragment {
     private RecyclerView mGameRecyclerView;
     private ArrayList<Game> mGames = new ArrayList<>();
     private GameAdapter mAdapter;
+    int mLastPosition = -1;
 
     public static GameListFragment newInstance(ArrayList<Game> games) {
         Bundle args = new Bundle();
@@ -55,12 +59,15 @@ public class GameListFragment extends Fragment {
     private class GameHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Game mGame;
+        private FrameLayout mGameContainer;
         private TextView mGameTitleTextView;
 
         public GameHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
 
+            mGameContainer = (FrameLayout)
+                    itemView.findViewById(R.id.list_item_game_container);
             mGameTitleTextView = (TextView)
                     itemView.findViewById(R.id.list_item_game_title_text_view);
         }
@@ -97,6 +104,15 @@ public class GameListFragment extends Fragment {
         public void onBindViewHolder(GameHolder gameHolder, int position) {
             Game game = mGames.get(position);
             gameHolder.bindGame(game);
+            setAnimation(gameHolder.mGameContainer, position);
+        }
+
+        private void setAnimation(View viewToAnimate, int position) {
+            if (position > mLastPosition) {
+                Animation animation = AnimationUtils.loadAnimation(getActivity(), android.R.anim.slide_in_left);
+                viewToAnimate.startAnimation(animation);
+                mLastPosition = position;
+            }
         }
 
         @Override

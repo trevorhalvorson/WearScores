@@ -5,7 +5,7 @@
     tools:context=".MainActivity">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_main"
         layout="@layout/layout_toolbar" />
 
     <LinearLayout

@@ -25,28 +25,28 @@ public class Game implements Serializable {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * @return The hs
+     * @return The home team score
      */
     public Integer getHs() {
         return hs;
     }
 
     /**
-     * @param hs The hs
+     * @param hs The home team score
      */
     public void setHs(Integer hs) {
         this.hs = hs;
     }
 
     /**
-     * @return The d
+     * @return The day of the week
      */
     public String getD() {
         return d;
     }
 
     /**
-     * @param d The d
+     * @param d The day of the week
      */
     public void setD(String d) {
         this.d = d;
@@ -67,14 +67,14 @@ public class Game implements Serializable {
     }
 
     /**
-     * @return The vs
+     * @return The visiting team score
      */
     public Integer getVs() {
         return vs;
     }
 
     /**
-     * @param vs The vs
+     * @param vs The visiting team score
      */
     public void setVs(Integer vs) {
         this.vs = vs;
@@ -95,14 +95,14 @@ public class Game implements Serializable {
     }
 
     /**
-     * @return The h
+     * @return The home team abbreviation
      */
     public String getH() {
         return h;
     }
 
     /**
-     * @param h The h
+     * @param h The home team abbreviation
      */
     public void setH(String h) {
         this.h = h;
@@ -137,70 +137,70 @@ public class Game implements Serializable {
     }
 
     /**
-     * @return The v
+     * @return The visiting team abbreviation
      */
     public String getV() {
         return v;
     }
 
     /**
-     * @param v The v
+     * @param v The visiting team abbreviation
      */
     public void setV(String v) {
         this.v = v;
     }
 
     /**
-     * @return The vnn
+     * @return The visiting team mascot
      */
     public String getVnn() {
         return vnn;
     }
 
     /**
-     * @param vnn The vnn
+     * @param vnn The visiting team mascot
      */
     public void setVnn(String vnn) {
         this.vnn = vnn;
     }
 
     /**
-     * @return The t
+     * @return The time
      */
     public String getT() {
         return t;
     }
 
     /**
-     * @param t The t
+     * @param t The time
      */
     public void setT(String t) {
         this.t = t;
     }
 
     /**
-     * @return The q
+     * @return The q (F - finished, P - pending)
      */
     public String getQ() {
         return q;
     }
 
     /**
-     * @param q The q
+     * @param q The q (F - finished, P - pending)
      */
     public void setQ(String q) {
         this.q = q;
     }
 
     /**
-     * @return The hnn
+     * @return The home team mascot
      */
     public String getHnn() {
         return hnn;
     }
 
     /**
-     * @param hnn The hnn
+     * @param hnn The home team mascot
      */
     public void setHnn(String hnn) {
         this.hnn = hnn;
