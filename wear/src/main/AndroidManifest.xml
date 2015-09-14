@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.trevorhalvorson.wearscores" >
+    package="com.trevorhalvorson.wearscores">
 
     <uses-feature android:name="android.hardware.type.watch" />
 
@@ -8,10 +8,14 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.DeviceDefault" >
+        android:theme="@android:style/Theme.DeviceDefault">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
-            android:name=".MyStubBroadcastActivity"
-            android:label="MyStubBroadcastActivity" >
+            android:name=".MainWearActivity"
+            android:label="@string/ok_google_voice_command">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,20 +23,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MyDisplayActivity"
-            android:allowEmbedded="true"
-            android:exported="true"
-            android:taskAffinity=""
-            android:theme="@android:style/Theme.DeviceDefault.Light" >
-        </activity>
-
-        <receiver
-            android:name=".MyPostNotificationReceiver"
-            android:exported="true" >
+            android:name=".GamesListActivity"
+            android:label="@string/title_activity_games_list" />
+        <service android:name=".WearableListenerService">
             <intent-filter>
-                <action android:name="com.trevorhalvorson.wearscores.SHOW_NOTIFICATION" />
+                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
             </intent-filter>
-        </receiver>
+        </service>
     </application>
 
 </manifest>

@@ -4,4 +4,9 @@
     <string name="hello">Hello World!</string>
     <string name="title">Hello Notification!</string>
     <string name="notification_posted">Notification posted</string>
+    <string name="title_activity_games_list">GamesListActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="ok_google_voice_command">Football Scores</string>
 </resources>

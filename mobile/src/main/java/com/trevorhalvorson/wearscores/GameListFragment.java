@@ -74,7 +74,8 @@ public class GameListFragment extends Fragment {
 
         public void bindGame(Game game) {
             mGame = game;
-            mGameTitleTextView.setText(mGame.getV() + " @ " + mGame.getH());
+            mGameTitleTextView.setText(mGame.getVs() + " " + mGame.getV() +
+                    " @ " + mGame.getH() + " " + mGame.getHs());
         }
 
         @Override
