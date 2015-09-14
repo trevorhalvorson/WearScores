@@ -2,6 +2,8 @@
 
 Wear Scores lets you see live scores of all NFL games of the week on your Android phone, tablet, or Wear device.
 
+This application is not affiliated with the National Football League. It uses data posted on [NFL.com](http://www.nfl.com/liveupdate/scorestrip/ss.json).
+
 ## Android Wear
 
 Launch Wear Scores with the command *Ok Google, start football scores*.
