@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.support.wearable.view.WearableListView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class GamesListActivity extends Activity {
+public class GamesListActivity extends Activity
+        implements WearableListView.ClickListener {
 
     private static final String TAG = GamesListActivity.class.getSimpleName();
     private String[] games;
@@ -21,46 +21,44 @@ public class GamesListActivity extends Activity {
         setContentView(R.layout.activity_games_list);
 
         String message = getIntent().getStringExtra("message");
-        Log.i(TAG, "onCreate " + message);
         games = message.split("\\|");
-        Log.i(TAG, "onCreate " + games.length);
 
         WearableListView wearableListView = (WearableListView) findViewById(R.id.wearable_list);
-        wearableListView.setAdapter(new Adapter(getApplicationContext(), games));
-
+        wearableListView.setAdapter(new Adapter(this, games));
+        wearableListView.setClickListener(this);
     }
 
-    private class Adapter extends WearableListView.Adapter {
-        private Context context = null;
-        private final LayoutInflater layoutInflater;
+    @Override
+    public void onClick(WearableListView.ViewHolder v) {
+        Log.d(TAG, "onClick ");
+    }
+
+    @Override
+    public void onTopEmptyRegionClick() {
+    }
+
+    private static class Adapter extends WearableListView.Adapter {
+        private Context mContext;
+        private final LayoutInflater mInflater;
         private String[] games;
 
         public Adapter(Context context, String[] games) {
-            this.context = context;
+            this.mContext = context;
             this.games = games;
-            this.layoutInflater = LayoutInflater.from(context);
-        }
-
-        public class ItemViewHolder extends WearableListView.ViewHolder {
-
-            private TextView textView;
-
-            public ItemViewHolder(View itemView) {
-                super(itemView);
-                textView = (TextView) itemView.findViewById(R.id.subjects);
-            }
+            this.mInflater = LayoutInflater.from(context);
         }
 
         @Override
-        public WearableListView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-            return new ItemViewHolder(layoutInflater.inflate(R.layout.list_item, null));
+        public WearableListView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new WearableListView.ViewHolder(
+                    mInflater.inflate(R.layout.list_item, null));
         }
 
         @Override
-        public void onBindViewHolder(WearableListView.ViewHolder viewHolder, int i) {
-            ItemViewHolder itemViewHolder = (ItemViewHolder) viewHolder;
-            TextView textView = itemViewHolder.textView;
-            textView.setText(games[i]);
+        public void onBindViewHolder(WearableListView.ViewHolder viewHolder, int position) {
+            TextView textView = (TextView) viewHolder.itemView.findViewById(R.id.game_info_text_view);
+            textView.setText(games[position]);
+            viewHolder.itemView.setTag(position);
         }
 
         @Override
