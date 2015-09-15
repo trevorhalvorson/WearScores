@@ -30,7 +30,7 @@ public class GamesListActivity extends Activity
 
     @Override
     public void onClick(WearableListView.ViewHolder v) {
-        Log.d(TAG, "onClick ");
+        Log.d(TAG, games[v.getAdapterPosition()]);
     }
 
     @Override

@@ -3,4 +3,8 @@
     <color name="wl_blue">#2878ff</color>
     <color name="wl_gray">#c1c1c1</color>
     <color name="text_color">#434343</color>
+    <color name="primary">#3F51B5</color>
+    <color name="primary_dark">#303F9F</color>
+    <color name="game_finished_color">#e51c23</color>
+    <color name="game_in_progress_color">#5af158</color>
 </resources>

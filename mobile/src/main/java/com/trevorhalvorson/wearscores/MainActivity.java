@@ -19,7 +19,6 @@ import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -29,13 +28,13 @@ import retrofit.client.Response;
 public class MainActivity extends AppCompatActivity
         implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String NFL_SCORES_ENDPOINT = "http://www.nfl.com/liveupdate/scorestrip";
     public static final String WEARABLE_DATA_PATH = "/wearable/data/path";
 
-    private List<Game> mGames;
+    private ArrayList<Game> mGames;
     private Toolbar mToolbar;
+    private String mWeekString = "Week ";
     private ProgressBar mProgressBar;
 
     private GoogleApiClient mGoogleApiClient;
@@ -47,21 +46,24 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
-        setSupportActionBar(mToolbar);
+        if (savedInstanceState == null) {
+            mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
+            setSupportActionBar(mToolbar);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
+
+            mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
+            RestAdapter restAdapter = new RestAdapter.Builder()
+                    .setEndpoint(NFL_SCORES_ENDPOINT).build();
+            api = restAdapter.create(NFLService.class);
+
+            getGames(api);
+        }
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Wearable.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
-
-        RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(NFL_SCORES_ENDPOINT).build();
-        api = restAdapter.create(NFLService.class);
-        getGames(api);
     }
 
     public void getGames(NFLService api) {
@@ -77,7 +79,8 @@ public class MainActivity extends AppCompatActivity
                         week.getGms()) {
                     mGames.add(g);
                 }
-                mToolbar.setTitle("Week " + week.getW());
+                mWeekString = mWeekString.concat(week.getW().toString());
+                mToolbar.setTitle(mWeekString);
                 if (mGames.size() == 0) {
                     Snackbar.make(findViewById(R.id.container),
                             "No games this week.",
@@ -88,7 +91,7 @@ public class MainActivity extends AppCompatActivity
                         sendMessage();
                     }
 
-                    Fragment gamesListFragment = GameListFragment.newInstance((ArrayList<Game>) mGames);
+                    Fragment gamesListFragment = GameListFragment.newInstance(mGames);
 
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.container, gamesListFragment)
@@ -137,12 +140,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private String arrayToString(List<Game> mGames) {
+    private String arrayToString(ArrayList<Game> mGames) {
         String allGamesScores = "";
         for (Game game :
                 mGames) {
-            allGamesScores = allGamesScores.concat(game.getVs() + " " + game.getV() +
-                    " @ " + game.getH() + " " + game.getHs() + "|");
+            if (!game.getQ().equals("P")) {
+                allGamesScores = allGamesScores.concat(game.getVs() + " " + game.getV() +
+                        " @ " + game.getH() + " " + game.getHs() + "|");
+            }
         }
         return allGamesScores;
     }
@@ -209,9 +214,6 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.action_refresh:
                 getGames(api);
-                return true;
-            case R.id.action_settings:
-                sendMessage();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

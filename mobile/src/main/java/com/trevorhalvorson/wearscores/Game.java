@@ -183,14 +183,14 @@ public class Game implements Serializable {
     }
 
     /**
-     * @return The q (F - finished, P - pending)
+     * @return The quarter (F - finished, FO - finished overtime, P - pending, 1 - Q1, etc.)
      */
     public String getQ() {
         return q;
     }
 
     /**
-     * @param q The q (F - finished, P - pending)
+     * @param q The quarter (F - finished, FO - finished overtime, P - pending, 1 - Q1, etc.)
      */
     public void setQ(String q) {
         this.q = q;

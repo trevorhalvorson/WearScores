@@ -2,9 +2,7 @@ package com.trevorhalvorson.wearscores;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -22,25 +20,12 @@ public class MainWearActivity extends Activity
     public static final String TAG = MainWearActivity.class.getSimpleName();
     public static final String WEARABLE_DATA_PATH = "/wearable/data/path";
 
-    private TextView mTextView;
     private GoogleApiClient googleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_wear);
-        final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
-        stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
-            @Override
-            public void onLayoutInflated(WatchViewStub stub) {
-                mTextView = (TextView) stub.findViewById(R.id.text);
-                String message = getIntent().getStringExtra("message");
-                if (message == null || message.equalsIgnoreCase("")) {
-                    message = "Hello World";
-                }
-                mTextView.setText(message);
-            }
-        });
 
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Wearable.API)
