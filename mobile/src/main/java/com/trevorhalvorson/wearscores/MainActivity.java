@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity
 
     private ArrayList<Game> mGames;
     private Toolbar mToolbar;
-    private String mWeekString = "Week ";
     private ProgressBar mProgressBar;
 
     private GoogleApiClient mGoogleApiClient;
@@ -79,8 +78,6 @@ public class MainActivity extends AppCompatActivity
                         week.getGms()) {
                     mGames.add(g);
                 }
-                mWeekString = mWeekString.concat(week.getW().toString());
-                mToolbar.setTitle(mWeekString);
                 if (mGames.size() == 0) {
                     Snackbar.make(findViewById(R.id.container),
                             "No games this week.",
@@ -90,6 +87,8 @@ public class MainActivity extends AppCompatActivity
                     if (getIntent().getStringExtra("message") != null) {
                         sendMessage();
                     }
+
+                    mToolbar.setTitle("Week " + week.getW());
 
                     Fragment gamesListFragment = GameListFragment.newInstance(mGames);
 
@@ -150,10 +149,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
         return allGamesScores;
-    }
-
-    public void sendMessageOnClick(View view) {
-        sendMessage();
     }
 
     public class SendMessageToDataLayer extends Thread {

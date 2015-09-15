@@ -1,10 +1,9 @@
 package com.trevorhalvorson.wearscores;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -103,9 +102,12 @@ public class GameListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Uri uri = Uri.parse("http://www.google.com/#q=" + mGame.getVnn() + " vs " + mGame.getHnn());
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+            String url = "http://www.google.com/#q=" + mGame.getVnn() + " vs " + mGame.getHnn();
+            Fragment webViewFragment = WebViewFragment.newInstance(url);
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.container, webViewFragment, "webViewFragment");
+            fragmentTransaction.addToBackStack("webViewFragment");
+            fragmentTransaction.commit();
         }
     }
 
